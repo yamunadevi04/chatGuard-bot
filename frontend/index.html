@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGuard Bot 🧠</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🧠 ChatGuard Bot</h1>
+            <p class="subtitle">Your Safe & Friendly AI Assistant</p>
+        </header>
+
+        <!-- Controls -->
+        <div class="controls">
+            <div class="mode-toggle">
+                <label for="mode-switch">Response Mode:</label>
+                <div class="toggle-container">
+                    <span class="mode-label">Formal</span>
+                    <label class="switch">
+                        <input type="checkbox" id="mode-switch">
+                        <span class="slider"></span>
+                    </label>
+                    <span class="mode-label">Funny</span>
+                </div>
+            </div>
+            <button class="clear-btn" id="clear-chat">🗑️ Clear Chat</button>
+        </div>
+
+        <!-- Chat Container -->
+        <div class="chat-container" id="chat-container">
+            <div class="welcome-message">
+                <h2>👋 Welcome!</h2>
+                <p>I'm here to help answer your questions in a safe and respectful way.</p>
+                <p>Try asking me anything! I'll keep our conversation appropriate.</p>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="input-container">
+            <form id="chat-form">
+                <input 
+                    type="text" 
+                    id="message-input" 
+                    placeholder="Type your message here..."
+                    autocomplete="off"
+                    maxlength="500"
+                />
+                <button type="submit" id="send-btn">
+                    <span class="send-icon">➤</span>
+                    <span class="send-text">Send</span>
+                </button>
+            </form>
+            <div class="status" id="status">Ready</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
