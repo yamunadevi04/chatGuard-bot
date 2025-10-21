@@ -26,7 +26,6 @@ def health_check():
 @app.route('/api/chat', methods=['POST'])
 def chat():
     try:
-        # getting data from request
         data = request.get_json()
         
         if not data:
@@ -47,7 +46,7 @@ def chat():
         preview = msg[:50] + '...' if len(msg) > 50 else msg
         print(f'[MODERATION] "{preview}" -> {classification} ({confidence:.1%})')
         reply = generate_response(msg, classification, mode)
-        # send back response
+        # sending back response
         return jsonify({
             'reply': reply,
             'classification': classification,
@@ -75,8 +74,7 @@ def internal_error(error):
 
 if __name__ == '__main__':
     print('\n🚀 ChatGuard Bot Backend')
-    print(f'📡 Server: http://localhost:{PORT}')
-    print(f'🤗 Hugging Face: {"✅ Configured" if os.getenv("HUGGINGFACE_API_KEY") else "❌ Not configured"}')
+    print(f'Server: http://localhost:{PORT}')
     print('\nEndpoints:')
     print('  GET  /api/health')
     print('  POST /api/chat\n')

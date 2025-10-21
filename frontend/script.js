@@ -9,7 +9,6 @@ const messageInput = document.getElementById('message-input');
 const sendBtn = document.getElementById('send-btn');
 const modeSwitch = document.getElementById('mode-switch');
 const clearBtn = document.getElementById('clear-chat');
-const statusText = document.getElementById('status');
 
 document.addEventListener('DOMContentLoaded', () => {
     const savedMode = localStorage.getItem('chatMode');
@@ -28,13 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
 async function checkBackendConnection() {
     try {
         const response = await fetch(`${API_URL}/health`);
-        if (response.ok) {
-            updateStatus('Connected ✅', 'success');
-        } else {
-            updateStatus('Backend error ⚠️', 'warning');
-        }
     } catch (error) {
-        updateStatus('Backend offline ❌', 'error');
+        console.log('Backend offline');
     }
 }
 
@@ -50,7 +44,6 @@ async function handleSubmit(e) {
     messageInput.value = '';
     const typingId = showTypingIndicator();
     isProcessing = true;
-    updateStatus('Thinking...', 'processing');
     sendBtn.disabled = true;
 
     try {
@@ -75,8 +68,6 @@ async function handleSubmit(e) {
 
         // adding bot response
         addMessage(data.reply, 'bot', data.classification);
-        
-        updateStatus('Ready', 'success');
 
     } catch (error) {
         console.error('Error:', error);
@@ -87,8 +78,6 @@ async function handleSubmit(e) {
             'bot',
             'irrelevant'
         );
-        
-        updateStatus('Error - check console', 'error');
     } finally {
         isProcessing = false;
         sendBtn.disabled = false;
@@ -150,7 +139,6 @@ function removeTypingIndicator(id) {
 function handleModeChange(e) {
     currentMode = e.target.checked ? 'funny' : 'formal';
     localStorage.setItem('chatMode', currentMode);
-    updateStatus(`Mode: ${currentMode.charAt(0).toUpperCase() + currentMode.slice(1)}`, 'info');
 }
 
 function handleClearChat() {
@@ -163,22 +151,11 @@ function handleClearChat() {
             </div>
         `;
         localStorage.removeItem('chatHistory');
-        updateStatus('Chat cleared', 'info');
     }
 }
 
 function handleInput(e) {
-    const length = e.target.value.length;
-    if (length > 450) {
-        updateStatus(`${500 - length} characters remaining`, 'warning');
-    } else {
-        updateStatus('Ready', 'success');
-    }
-}
-
-function updateStatus(text, type = 'info') {
-    statusText.textContent = text;
-    statusText.className = `status ${type}`;
+    // input handling if needed
 }
 
 function saveChatHistory() {
